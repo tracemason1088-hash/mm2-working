@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Window = Rayfield:CreateWindow({
     Name = "MM2 Hacks",
     LoadingTitle = "MM2 Hacks",
-    LoadingSubtitle = "by Grok",
+    LoadingSubtitle = "by  MustyMenu",
     ConfigurationSaving = { Enabled = false },
     KeySystem = false
 })
@@ -205,10 +205,6 @@ TrollTab:CreateButton({
 
 -- Settings
 local SettingsTab = Window:CreateTab("Settings", 4483362458)
-SettingsTab:CreateButton({
-    Name = "Minimize",
-    Callback = function() Rayfield:Toggle() end
-})
 
 SettingsTab:CreateButton({
     Name = "Close Menu",
