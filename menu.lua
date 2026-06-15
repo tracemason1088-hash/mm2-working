@@ -1,5 +1,3 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-
 local Window = Rayfield:CreateWindow({
     Name = "MM2 Hacks",
     LoadingTitle = "MM2 Hacks",
@@ -12,11 +10,16 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
+local UserInputService = game:GetService("UserInputService")
 
 -- Variables
 local ESPEnabled = false
 local ESPObjects = {}
 local TracerObjects = {}
+
+-- Misc Variables
+local NoclipEnabled = false
+local InfiniteJumpEnabled = false
 
 local function GetRole(plr)
     local char = plr.Character
@@ -138,6 +141,26 @@ local function KillAura(state)
     end)
 end
 
+-- Misc Loops
+RunService.Stepped:Connect(function()
+    if NoclipEnabled and LocalPlayer.Character then
+        for _, part in pairs(LocalPlayer.Character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = false
+            end
+        end
+    end
+end)
+
+UserInputService.JumpRequest:Connect(function()
+    if InfiniteJumpEnabled and LocalPlayer.Character then
+        local humanoid = LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+        end
+    end
+end)
+
 -- Tabs
 local MainTab = Window:CreateTab("Main", 4483362458)
 local MainSection = MainTab:CreateSection("Core Features")
@@ -200,6 +223,33 @@ TrollTab:CreateButton({
                 end
             end
         end
+    end
+})
+
+-- Miscellaneous Tab
+local MiscTab = Window:CreateTab("Miscellaneous", 4483362458)
+MiscTab:CreateSection("Utility & Fun")
+
+MiscTab:CreateToggle({
+    Name = "Noclip",
+    CurrentValue = false,
+    Callback = function(state)
+        NoclipEnabled = state
+    end
+})
+
+MiscTab:CreateToggle({
+    Name = "Infinite Jump",
+    CurrentValue = false,
+    Callback = function(state)
+        InfiniteJumpEnabled = state
+    end
+})
+
+MiscTab:CreateButton({
+    Name = "Infinite Yield",
+    Callback = function()
+        loadstring(game:HttpGet('https://githubusercontent.com'))()
     end
 })
 
